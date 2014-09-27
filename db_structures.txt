@@ -1,0 +1,38 @@
+(these are mostly just ideas at this point, subject to change at any time and field sizes may be incorrect and/or unoptimized (I'm not the best at creating databases lel))
+
+Users:
+	id = int
+	username = string(64)
+	password = string(64?)
+	email = string(64?) // is this needed? probably not
+	lastloginip = string(32) // last IP logged in from, as string
+	remembercookie = string(16) // string to remember the user
+	role = int // 0=user, 1=banned, 2=mod
+
+Records:
+	id = int
+	user = int
+	map = string(32) // hash of the map
+	character = string(16)
+	playerbest = int // flags: 1=best score, 2=best time, 4=best rings (non-NiGHTS)
+	score = int
+	time = int
+	rings = int
+	submitted = timestamp (as int)
+
+Maps:
+	id = int
+	hash = string(32) // map hash
+	name = string(40)
+	description = string(4096) // can contain HTML, should be fine since only mods can set this anyway
+	type = int // 0=record attack, 1=NiGHTS
+	levelpic = string(32) // filename of level select pic (in /levelpics)
+	banned = boolean // if true then replays for this map will be rejected
+
+Characters:
+	id = int
+	skin = string(16)
+	name = string(32) // actual printed name, whereas above is used as the code-based identifier
+	icon = string(32) // filename of character icon (in /charpics)
+	description = string(4096) // can contain HTML, should be fine since only mods can set this anyway
+	banned = boolean // if true then replays for this character will be rejected
