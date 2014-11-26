@@ -4,7 +4,7 @@ Users:
 	id = int
 	username = string(64)
 	password = string(64?)
-	email = string(64?) // is this needed? probably not
+	//email = string(64?) // is this needed? probably not
 	lastloginip = string(32) // last IP logged in from, as string
 	remembercookie = string(16) // string to remember the user
 	role = int // 0=user, 1=banned, 2=mod

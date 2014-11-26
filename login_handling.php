@@ -32,7 +32,7 @@
 		global $_SESSION;
 		// TODO store this info in the session
 		$acct = acct_getname($user);
-		if (!password_compare($pass, $acct['password']))
+		if (!passwd_compare($pass, $acct['password']))
 			return array('error' => 'Incorrect username or password.');
 		
 		// TODO store account login in session, pass/create rememberme cookie, and store IP used to login
@@ -69,7 +69,7 @@
 		$db = db_connect();
 		$reg = $db->prepare('INSERT INTO users (username, password, lastloginip, remembercookie, role) VALUES (:username, :password, :lastloginip, :remembercookie, :role)');
 		$reg->bindValue(':username', $user, PDO::PARAM_STR);
-		$reg->bindValue(':password', password_hash($pass), PDO::PARAM_STR);
+		$reg->bindValue(':password', passwd_hash($pass), PDO::PARAM_STR);
 		$reg->bindValue(':lastloginip', user_ip(), PDO::PARAM_STR);
 		$reg->bindValue(':remembercookie', 'blapck', PDO::PARAM_STR); // It should never be possible to do a remembered login with this user ID
 		$reg->bindValue(':role', ROLE_USER, PDO::PARAM_INT);
@@ -142,7 +142,7 @@
 	}
 	
 	// Hash a password
-	function password_hash($password) {
+	function passwd_hash($password) {
 		global $db_config;
 		$cost = $db_config['passcost'];
 		$salt=sprintf('$2a$%02d$',$cost);
@@ -156,7 +156,7 @@
 	}
 	
 	// Does this password match the hash given?
-	function password_compare($password, $hash) {
+	function passwd_compare($password, $hash) {
 		global $db_config;
 		return crypt($db_config['passpepper'].$password, $hash) == $hash;
 	}
