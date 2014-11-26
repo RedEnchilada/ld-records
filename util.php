@@ -35,7 +35,7 @@
 	}
 	
 	// Start session
-	session_name($db_config['cookie_remember']);
+	session_name($db_config['cookie_session']);
 	session_start();
 	
 	// Render page without extra whitespace
